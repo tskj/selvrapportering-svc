@@ -1,7 +1,5 @@
 import { Client } from 'pg';
-
-const connectionString =
-  'postgresql://postgres:myPassword@localhost:5432/selvrapportering';
+import { connectionString } from '../settings';
 
 const client = new Client({
   connectionString,

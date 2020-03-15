@@ -8,7 +8,7 @@ import {
   permissionsProperty,
   adminPermission,
   basePath,
-} from './settings/settings';
+} from './settings';
 import { createUser, getUser, migrateV1, selectNow } from './api/repository';
 
 const app = express();
