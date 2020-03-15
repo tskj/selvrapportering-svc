@@ -9,11 +9,14 @@ import {
   adminPermission,
   basePath,
 } from './settings';
-import { createUser, getUser, migrateV1, selectNow } from './api/repository';
+import { createUser, getUser, selectNow } from './api/repository';
+import { migrate } from './migrations';
 
 const app = express();
 const subpath = express();
 const port = process.env.PORT || 6789;
+
+migrate();
 
 app.use(express.json());
 app.use(cors());
@@ -44,10 +47,6 @@ subpath.get('/health', (req, res) => {
       console.log(err);
       res.status(500).send(err);
     });
-});
-
-subpath.get('/migrateDB', (req, res) => {
-  migrateV1().then(() => res.send());
 });
 
 subpath.post('/users/:name', (req, res) => {

@@ -1,20 +1,10 @@
 import { Client } from 'pg';
 import { connectionString } from '../settings';
 
-const client = new Client({
+export const client = new Client({
   connectionString,
 });
 client.connect();
-
-export async function migrateV1() {
-  const initTable = `
-        CREATE TABLE "person" (
-            id          SERIAL PRIMARY KEY,
-            name        VARCHAR(255)
-        );
-    `;
-  return await client.query(initTable);
-}
 
 export async function selectNow() {
   const date = await client.query('SELECT NOW()');
