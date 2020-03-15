@@ -10,6 +10,15 @@ import {
   basePath,
 } from './settings/settings';
 
+import { Client } from 'node-postgres';
+const client = new Client({
+  host: 'localhost',
+  port: 5432,
+  database: 'selvrapportering',
+  user: 'postgres',
+  password: 'myPassword',
+});
+
 const app = express();
 const subpath = express();
 const port = process.env.PORT || 6789;
@@ -37,8 +46,9 @@ subpath.get('/health', (req, res) => res.send());
 
 app.get('/test/get/:id', async (req, res) => {
   const id = req.params.id;
-  console.log(id);
-  res.json({ id });
+  client.connect();
+  const postgres = await client.query('SELECT NOW()');
+  res.json({ id, postgres });
 });
 
 app

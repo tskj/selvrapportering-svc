@@ -27,6 +27,7 @@
     "form-urlencoded": "^4.1.0",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
+    "node-postgres": "^0.1.4",
     "typescript": "^3.7.2"
   }
 }
