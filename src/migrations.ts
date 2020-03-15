@@ -8,7 +8,7 @@ interface File {
 
 export const migrate = async () => {
   await client.query(
-    'CREATE TABLE IF NOT EXISTS Migrations (Name varchar(255))'
+    'CREATE TABLE IF NOT EXISTS Migrations (Name varchar(255))',
   );
 
   const finishedMigrations: {
@@ -20,7 +20,10 @@ export const migrate = async () => {
   const notRunMigrations = allMigrations
     .filter(({ name }) => !finishedMigrations.map(x => x.name).includes(name))
     .sort(({ name: name1 }, { name: name2 }) =>
-      alphabeticalOrder(name1, name2)
+      name1.localeCompare(name2, undefined, {
+        numeric: true,
+        sensitivity: 'base',
+      }),
     );
 
   console.log('Fant følgende migrasjoner:');
@@ -41,18 +44,15 @@ const getMigrations = async (): Promise<File[]> => {
           fileNames.map(async fileName => ({
             name: fileName,
             content: await readFileContent(path + '/' + fileName),
-          }))
-        )
+          })),
+        ),
       );
-    })
+    }),
   );
 };
 
 const readFileContent = (fileName: string): Promise<string> => {
   return new Promise(resolve =>
-    fs.readFile(fileName, 'utf8', (err, data) => resolve(data))
+    fs.readFile(fileName, 'utf8', (err, data) => resolve(data)),
   );
 };
-
-const alphabeticalOrder = (str1, str2) =>
-  str1 < str2 ? -1 : str2 < str1 ? 1 : 0;
