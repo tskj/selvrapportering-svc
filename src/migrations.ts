@@ -54,5 +54,5 @@ const readFileContent = (fileName: string): Promise<string> => {
   );
 };
 
-const alphabeticalOrder = (str1: string, str2: string) =>
-  str1 < str2 ? 1 : str2 < str1 ? -1 : 0;
+const alphabeticalOrder = (str1, str2) =>
+  str1 < str2 ? -1 : str2 < str1 ? 1 : 0;
