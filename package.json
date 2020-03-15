@@ -13,7 +13,7 @@
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged --trailing-comma all"
+      "pre-commit": "pretty-quick --staged"
     }
   },
   "devDependencies": {
