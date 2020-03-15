@@ -1,6 +1,5 @@
 import { Client } from 'pg';
-
-const connectionString = process.env.DATABASE_URL;
+import { connectionString } from '../settings';
 
 const client = new Client({
   connectionString,
