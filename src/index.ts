@@ -24,12 +24,12 @@ app.use(
     jwks: issuer,
   }).unless({
     path: openEndpoints,
-  })
+  }),
 );
 app.use(
   (guard({ permissionsProperty }).check(adminPermission) as any).unless({
     path: openEndpoints,
-  })
+  }),
 );
 
 app.use(basePath, subpath);
