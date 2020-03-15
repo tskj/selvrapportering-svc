@@ -6,7 +6,7 @@ eller
 ```bash
 docker-compose up db
 npm start
-npm run dev-server
+DATABASE_URL='postgresql://user:password@localhost:5432/selvrapportering' npm run dev-server
 ```
 i hvert sitt vindu.
 

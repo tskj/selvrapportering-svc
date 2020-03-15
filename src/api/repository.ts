@@ -1,6 +1,6 @@
 import { Pool, Client } from 'pg';
 
-const connectionString = 'postgresql://user:password@localhost:5432/selvrapportering';
+const connectionString = process.env.DATABASE_URL;
 
 const client = new Client({
     connectionString,
