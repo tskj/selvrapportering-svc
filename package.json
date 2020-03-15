@@ -4,8 +4,10 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
+    "prestart": "cp -r ./src/migrations ./dist",
     "start": "tsc -w",
     "build": "tsc",
+    "postbuild": "cp -r ./src/migrations ./dist",
     "server": "node dist/index.js",
     "dev-server": "nodemon dist/index.js"
   },

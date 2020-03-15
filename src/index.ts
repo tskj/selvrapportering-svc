@@ -69,11 +69,9 @@ app
   .listen(port)
   .on('error', async (err: any) => {
     if (err) {
-      console.log('hei');
       return console.error(err);
     }
   })
   .on('success', () => {
-    console.log('du');
     return console.log(`server is listening on ${port}`);
   });
