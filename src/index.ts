@@ -15,6 +15,7 @@ import { migrate } from './migrations';
 const app = express();
 const subpath = express();
 const port = process.env.PORT || 6789;
+console.log(`Starting on port ${port} …`);
 
 migrate();
 
@@ -27,12 +28,12 @@ app.use(
     jwks: issuer,
   }).unless({
     path: openEndpoints,
-  })
+  }),
 );
 app.use(
   (guard({ permissionsProperty }).check(adminPermission) as any).unless({
     path: openEndpoints,
-  })
+  }),
 );
 
 app.use(basePath, subpath);

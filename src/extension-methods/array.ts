@@ -38,7 +38,7 @@ declare global {
     chunkBy<C extends Comparable>(key: (x: T) => C): T[][];
     chunkBy<C extends Comparable, E>(
       key: (x: T) => C,
-      f?: (key: C, values: T[]) => E
+      f?: (key: C, values: T[]) => E,
     ): E[];
 
     /**
@@ -53,7 +53,7 @@ declare global {
 
 Array.prototype.filterMap = function<T, E>(
   this: T[],
-  f: (x: T) => Optional<E>
+  f: (x: T) => Optional<E>,
 ): E[] {
   return this.reduce((acc: E[], x) => {
     const y = f(x);
@@ -74,7 +74,7 @@ Array.prototype.uniqBy = function<T>(this: T[], key: (x: T) => Equatable): T[] {
 
 Array.prototype.groupBy = function<S extends string, T>(
   this: any[],
-  key: (x: T) => S
+  key: (x: T) => S,
 ) {
   return _.groupBy(this, key) as Record<S, Optional<T[]>>;
 };
@@ -82,10 +82,10 @@ Array.prototype.groupBy = function<S extends string, T>(
 Array.prototype.chunkBy = function<T, C extends Comparable, E>(
   this: T[],
   key: (x: T) => C,
-  f?: (key: C, values: T[]) => E
+  f?: (key: C, values: T[]) => E,
 ) {
   const chunked = Object.entries(_.groupBy(this, key)).sortBy(
-    ([_key, values]) => _key
+    ([_key, values]) => _key,
   );
   return f
     ? chunked.map(([_key, values]) => f(_key as C, values))
@@ -95,12 +95,12 @@ Array.prototype.chunkBy = function<T, C extends Comparable, E>(
 Array.prototype.replaceBy = function<T>(
   this: T[],
   _newThings: T[],
-  key: (x: T) => Equatable
+  key: (x: T) => Equatable,
 ): T[] {
   const oldThings = this.uniqBy(key);
   const newThings = _newThings.uniqBy(key);
   const replacedThings = oldThings.map(
-    x => newThings.find(y => key(y) === key(x)) || x
+    x => newThings.find(y => key(y) === key(x)) || x,
   );
   return [
     ...replacedThings,
