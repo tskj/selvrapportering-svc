@@ -9,12 +9,15 @@ import {
   adminPermission,
   basePath,
 } from './settings';
-import { createUser, getUser, migrateV1, selectNow } from './api/repository';
+import { createUser, getUser, selectNow } from './api/repository';
+import { migrate } from './migrations';
 
 const app = express();
 const subpath = express();
 const port = process.env.PORT || 6789;
 console.log(`Starting on port ${port} …`);
+
+migrate();
 
 app.use(express.json());
 app.use(cors());
@@ -47,10 +50,6 @@ subpath.get('/health', (req, res) => {
     });
 });
 
-subpath.get('/migrateDB', (req, res) => {
-  migrateV1().then(() => res.send());
-});
-
 subpath.post('/users/:name', (req, res) => {
   const name = req.params.name;
   const user = createUser(name);
@@ -71,11 +70,9 @@ app
   .listen(port)
   .on('error', async (err: any) => {
     if (err) {
-      console.log('hei');
       return console.error(err);
     }
   })
   .on('success', () => {
-    console.log('du');
     return console.log(`server is listening on ${port}`);
   });
