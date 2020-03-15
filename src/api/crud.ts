@@ -37,12 +37,12 @@ async function fetchAndValidate(
   method: string,
   host: string,
   path: string,
-  body?: any
+  body?: any,
 ) {
   const url = `${host}${path}`;
   const response = await fetch(
     url,
-    options(method, body && JSON.stringify(body))
+    options(method, body && JSON.stringify(body)),
   );
 
   if (response.ok) {
