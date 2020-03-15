@@ -14,6 +14,7 @@ import { createUser, getUser, migrateV1, selectNow } from './api/repository';
 const app = express();
 const subpath = express();
 const port = process.env.PORT || 6789;
+console.log(`Starting on port ${port} …`);
 
 app.use(express.json());
 app.use(cors());
