@@ -11,8 +11,16 @@
   },
   "author": "",
   "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --trailing-comma all"
+    }
+  },
   "devDependencies": {
+    "husky": "4.2.3",
     "nodemon": "^1.19.4",
+    "prettier": "1.19.1",
+    "pretty-quick": "2.0.1",
     "tslint": "^6.0.0-beta0"
   },
   "dependencies": {
