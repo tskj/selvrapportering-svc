@@ -9,15 +9,12 @@ import {
   adminPermission,
   basePath,
 } from './settings/settings';
-
-import { Client } from 'node-postgres';
-const client = new Client({
-  host: 'localhost',
-  port: 5432,
-  database: 'selvrapportering',
-  user: 'postgres',
-  password: 'myPassword',
-});
+import {
+  createUser,
+  getUser,
+  migrateV1,
+  selectNow
+} from "./api/repository";
 
 const app = express();
 const subpath = express();
@@ -42,13 +39,38 @@ app.use(
 
 app.use(basePath, subpath);
 
-subpath.get('/health', (req, res) => res.send());
+subpath.get('/health', (req, res) => {
+  selectNow()
+      .then(selected => {
+        console.log(selected);
+        res.json({ dbTimestamp: selected.now})
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).send(err)
+      });
+});
+
+subpath.get('/migrateDB', (req, res) => {
+  migrateV1().then(() => res.send());
+});
+
+subpath.post('/users/:name', (req, res) => {
+  const name = req.params.name;
+  const user = createUser(name);
+  createUser(name)
+      .then(createdUser => res.json(createdUser))
+});
+
+subpath.get('/users/:id', (req, res) => {
+  const id: number = parseInt(req.params.id, 10);
+  getUser(id)
+      .then(user => res.json(user))
+});
 
 app.get('/test/get/:id', async (req, res) => {
   const id = req.params.id;
-  client.connect();
-  const postgres = await client.query('SELECT NOW()');
-  res.json({ id, postgres });
+  res.json({ id, });
 });
 
 app
