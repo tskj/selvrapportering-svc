@@ -8,7 +8,7 @@ import {
   permissionsProperty,
   adminPermission,
   basePath,
-} from './settings/settings';
+} from './settings';
 import { createUser, getUser, migrateV1, selectNow } from './api/repository';
 
 const app = express();
@@ -63,7 +63,6 @@ subpath.get('/users/:id', (req, res) => {
 
 app.get('/test/get/:id', async (req, res) => {
   const id = req.params.id;
-  console.log(id);
   res.json({ id });
 });
 

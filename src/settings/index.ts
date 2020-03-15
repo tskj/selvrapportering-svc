@@ -7,3 +7,6 @@ export const basePath = process.env.VIRTUAL_PATH || appsettings.virutal_path;
 
 export const permissionsProperty = appsettings.jwtPermissionProperty;
 export const adminPermission = appsettings.adminPermission;
+
+export const connectionString =
+  process.env.DATABASE_URL || appsettings.connection_string;
