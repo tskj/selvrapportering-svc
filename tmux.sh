@@ -7,6 +7,7 @@ tmux new -s $session -d
 tmux split-window -h -t $session
 tmux resize-pane -t $session -x 5
 
+tmux send-keys -t $session 'docker-compose up db' C-m
 tmux split-window -v -t $session
 tmux send-keys -t $session 'npm start' C-m
 

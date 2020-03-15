@@ -27,11 +27,7 @@
     "form-urlencoded": "^4.1.0",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
-<<<<<<< HEAD
-    "node-postgres": "^0.1.4",
-=======
     "pg": "7.18.2",
->>>>>>> 964681162b92d42d0019381105472f41fc283abb
     "typescript": "^3.7.2"
   }
 }
